@@ -53,3 +53,12 @@ height: 70%;
 border-radius: 10px;
 box-shadow: 0 0 5px gray;
 }
+
+.cambio2 {
+    background-image: url("../img/icons8-shopping-trolley-64.png");
+    background-repeat: no-repeat;
+    background-size: 30%;    
+    font-weight: 300;
+    height: 35px;
+}
+
