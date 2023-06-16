@@ -30,26 +30,14 @@
 
 // }
 
-const pokemonesCapturados = [];
+let pokemonesCapturados = [];
 
   fetch('https://pokeapi.co/api/v2/pokemon?limit=100')
   .then(response => response.json())
   .then(data => {
-    data.forEach(pokemon => {
-      fetch(pokemon.url)
-        .then(response => response.json())
-        .then(pokemonData => {
-            pokemonesCapturados.push(pokemonData)
-        })
-        .catch(error => {
-          console.log('Ha ocurrido un error:', error);
-        });
-    });
-    localStorage.setItem("listaPokemones",JSON.stringify(pokemonesCapturados))
-  })
-  .catch(error => {
-    console.log('Ha ocurrido un error:', error);
-  });
+    pokemonesCapturados=data.results
+    localStorage.setItem("ListaPokemones",JSON.stringify(pokemonesCapturados))
+  }) 
 
 
   const pokemonName = 'pikachu';
