@@ -11,23 +11,61 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          <img src="../img/descarga.jfif" height="30" alt="">
+   
+  <nav class="nav">
+
+    <div class="nav__container">
+
+        <a  class="nav__title">
+          <img src="../img/icons8-psyduck-50.png" height="70">
         </a>
-        
-          <li class="nav-item dropdown cambio3">
-            <a class="nav-link dropdown-toggle cambio2" data-toggle="dropdown"  role="button" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu cambio1">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </li>
-        
-      </nav>
+
+        <a href="#menu" class="nav__menu">
+            <img src="../img/icons8-shopping-trolley-64.png" class="nav__icon">
+        </a>
+
+        <a href="#" class="nav__menu nav__menu--second">
+            <img src="../img/icons8-cancelar-50.png" class="nav__icon ">
+        </a>
+
+        <ul class="dropdown" id="menu">
+
+            <li class="dropdown__list">
+                <a href="#" class="dropdown__link">
+                    <img src="../img/icons8-pokemon-50.png" class="dropdown__icon">
+                    <span class="dropdown__span">Carrito</span>
+                </a>
+            </li>
+---------------------------------------------------------------------------------------------------------------------------
+            <div class="container m-1">
+              <table class="table table-striped">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th>Nombre</th>
+                          <th>Cantidad</th>
+                          <th>Precio Unitario</th>
+                      </tr>
+                  </thead>
+                  <tbody id="items">
+                      
+  
+                  </tbody>
+                  <tfoot class="thead-dark">
+                      <tr>
+                          <th>Total: </th>
+                          <th></th>
+                          <th id="total"></th>
+                      </tr>
+                  </tfoot>
+              </table>
+          </div>   
+-------------------------------------------------------------------------------------------------------------------------
+        </ul>
+
+    </div>
+
+</nav>
+
 
       <div class="container-xl contenedor">
         <div class="imagen_pokemon">
@@ -35,14 +73,16 @@
         </div>
         <div class="informacion_pokemon">
           <div class="formulario">
-            <form class="form-inline">
+            <form id="agregar" class="form-inline" >
               <div class="input-group mb-2 mr-sm-2">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Pokemon</div>
+                  <div class="input-group-text">Elija Pokemon</div>
                 </div>
-                <input type="text" class="form-control" id="input_pokemon" placeholder="Username">
+                <select id="productos" class="form-control">
+                    <!-- se agrego un elemento html option  -->
+                </select>
               </div>
-              <button type="button" class="btn btn-secondary mb-2">Buscar</button>
+              <button id="agregar" class="btn btn-primary">Agregar</button>
             </form>
           </div>
           <div class="datos_pokemon">
@@ -53,11 +93,13 @@
 
       <footer>
         <i class="bi bi-youtube">KEMPE_CODE</i>
-      </footer>
+      </footer> 
 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-      <script src="./index.js" type="module"></script>
+    <script src="./model/Producto.js"></script>
+    <script src="./model/item.js"></script>
+    <script src="./index.js" type="module"></script>
   </body>
 </html<>

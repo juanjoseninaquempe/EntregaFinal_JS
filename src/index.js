@@ -30,7 +30,16 @@
 
 // }
 
+let carrito = [];
 let pokemonesCapturados = [];
+
+
+  const tabla = document.getElementById('items');
+  const selectProductos = document.getElementById('productos');
+  const total = document.getElementById('total');
+
+
+
 
   fetch('https://pokeapi.co/api/v2/pokemon?limit=100')
   .then(response => response.json())
@@ -38,6 +47,41 @@ let pokemonesCapturados = [];
     pokemonesCapturados=data.results
     localStorage.setItem("ListaPokemones",JSON.stringify(pokemonesCapturados))
   }) 
+
+  allEventListeners();
+
+
+function allEventListeners()
+{
+  window.addEventListener('DOMContentLoaded', traerItems);
+}
+
+function traerItems()
+{
+  ///traer los productos del localStorage
+  ///si no hay nada inicializara stock en vacio []
+  ListaPokemones = JSON.parse(localStorage.getItem('ListaPokemones')) || [];
+  carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+  popularDropDown();
+  actualizarTablaCarrito();  
+}
+
+function popularDropDown() {
+  ListaPokemones.forEach((pokemoncito,index) => {
+    const option = document.createElement('option');
+    option.textContent = `${pokemoncito.nombre}: ${pokemoncito.precio}`;
+    option.value = index; ///el indice donde se encuentra este producto
+    selectProductos.appendChild(option);
+  });
+}
+
+
+
+
+
+
+
+
 
 
   const pokemonName = 'pikachu';
