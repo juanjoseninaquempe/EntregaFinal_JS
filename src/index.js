@@ -34,56 +34,37 @@ let carrito = [];
 let pokemonesCapturados = [];
 
 
-  const tabla = document.getElementById('items');
-  const selectProductos = document.getElementById('productos');
-  const total = document.getElementById('total');
+
+
+const select = document.getElementById('pokemones');
+
+
+  fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
+	.then((response) => response.json())
+	.then((data) => {
+		pokemonesCapturados = data.results;
+		localStorage.setItem("ListaPokemones", JSON.stringify(pokemonesCapturados));
+		console.log(pokemonesCapturados);
+		pokemonesCapturados.forEach((pokemoncito) => {
+			const option = document.createElement("option");
+			option.textContent = `${pokemoncito.name}`;
+			option.value = `${pokemoncito.url}`; ///el indice donde se encuentra este producto
+			select.appendChild(option);
+		});
+	});
+
+   const formulario = document.getElementById('formulario');
+
+         formulario.addEventListener("submit",(e) => {
+         e.preventDefault();
+          const pokemonElegido= pokemonesCapturados[select.value];
+          console.log(pokemonElegido);
+         })
 
 
 
-
-  fetch('https://pokeapi.co/api/v2/pokemon?limit=100')
-  .then(response => response.json())
-  .then(data => {
-    pokemonesCapturados=data.results
-    localStorage.setItem("ListaPokemones",JSON.stringify(pokemonesCapturados))
-  }) 
-
-  allEventListeners();
-
-
-function allEventListeners()
-{
-  window.addEventListener('DOMContentLoaded', traerItems);
-}
-
-function traerItems()
-{
-  ///traer los productos del localStorage
-  ///si no hay nada inicializara stock en vacio []
-  ListaPokemones = JSON.parse(localStorage.getItem('ListaPokemones')) || [];
-  carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-  popularDropDown();
-  actualizarTablaCarrito();  
-}
-
-function popularDropDown() {
-  ListaPokemones.forEach((pokemoncito,index) => {
-    const option = document.createElement('option');
-    option.textContent = `${pokemoncito.nombre}: ${pokemoncito.precio}`;
-    option.value = index; ///el indice donde se encuentra este producto
-    selectProductos.appendChild(option);
-  });
-}
-
-
-
-
-
-
-
-
-
-
+ 
+/*
   const pokemonName = 'pikachu';
 
 fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
@@ -102,5 +83,5 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
   .catch(error => {
     console.log('Ha ocurrido un error:', error);
   });
-
+*/
 
