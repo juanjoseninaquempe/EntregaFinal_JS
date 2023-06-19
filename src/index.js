@@ -34,8 +34,6 @@ let carrito = [];
 let pokemonesCapturados = [];
 
 
-
-
 const select = document.getElementById('pokemones');
 
 
@@ -52,36 +50,42 @@ const select = document.getElementById('pokemones');
 			select.appendChild(option);
 		});
 	});
+ 
+  console.log(select);
 
    const formulario = document.getElementById('formulario');
 
          formulario.addEventListener("submit",(e) => {
          e.preventDefault();
-          const pokemonElegido= pokemonesCapturados[select.value];
+          const pokemonElegido= select.value;
           console.log(pokemonElegido);
+          fetch(pokemonElegido)
+          .then((response2) => response2.json())
+          .then((data2) => {
+            console.log(data2.results);
+            carrito.push(data2);
+            console.log(carrito);
+          })
          })
 
 
-
  
-/*
-  const pokemonName = 'pikachu';
 
-fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-  .then(response => response.json())
-  .then(data => {
-    console.log('Nombre:', data.name);
-    console.log('Altura:', data.height);
-    console.log('Peso:', data.weight);
-    console.log('Habilidades:', data.abilities.map(ability => ability.ability.name).join(', '));
-    console.log('Tipo:', data.types.map(type => type.type.name).join(', '));
-    console.log('Estadísticas:');
-    data.stats.forEach(stat => {
-      console.log(`${stat.stat.name}: ${stat.base_stat}`);
-    });
-  })
-  .catch(error => {
-    console.log('Ha ocurrido un error:', error);
-  });
-*/
+//   const pokemonName = 'pikachu';
 
+// fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log('Nombre:', data.name);
+//     console.log('Altura:', data.height);
+//     console.log('Peso:', data.weight);
+//     console.log('Habilidades:', data.abilities.map(ability => ability.ability.name).join(', '));
+//     console.log('Tipo:', data.types.map(type => type.type.name).join(', '));
+//     console.log('Estadísticas:');
+//     data.stats.forEach(stat => {
+//       console.log(`${stat.stat.name}: ${stat.base_stat}`);
+//     });
+//   })
+//   .catch(error => {
+//     console.log('Ha ocurrido un error:', error);
+//   });
