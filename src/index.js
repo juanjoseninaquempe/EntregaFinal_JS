@@ -37,6 +37,9 @@ let pokemonesCapturados = [];
 
 const tabla = document.getElementById('items');
 const select = document.getElementById('pokemones');
+let div =document.querySelector('.datos_pokemon')
+let tabla1= document.createElement("table")
+
 
 
   fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
@@ -72,20 +75,18 @@ const select = document.getElementById('pokemones');
             let imagen= document.getElementById('pokemon_img')
             imagen.src= data2.sprites.other.dream_world.front_default 
 
-
-            let div =document.getElementById('datos_pokemon')
-            // let div=$('.datos_pokemon')
-            div.empty()
-
-            let tabla1 = (`<table class="table">`)
+            tabla1.innerHTML=""
 
             for(let i =0; i<data2.stats.length; i++) {
-              tabla1+=('<tr>')
-              tabla1+=(`<td>${data2.stats[i].stat.name}</td>`)
-              tabla1+=(`<td>${data2.stats[i].base_stat}</td>`)
-              tabla1+=('</tr>')
+              const p =document.createElement("p")
+              const pStats =document.createElement("p")
+
+              p.innerHTML= `${data2.stats[i].stat.name} `
+              pStats.innerHTML= `${data2.stats[i].base_stat}`
+              tabla1.appendChild(p)
+              tabla1.appendChild(pStats)
             }
-            tabla1+=('</table>')
+
             div.append(tabla1)
             // let tabla =document.getElementById()
             renderizarTabla();
