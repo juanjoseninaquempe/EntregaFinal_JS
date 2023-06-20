@@ -1,6 +1,8 @@
 // import $ from  'jquery'
 // import {getPokemon} from './api'
 
+// const { data } = require("jquery");
+
 // obtenerPokemon()
 
 // function obtenerPokemon(){
@@ -33,13 +35,14 @@
 let carrito = [];
 let pokemonesCapturados = [];
 
-
+const tabla = document.getElementById('items');
 const select = document.getElementById('pokemones');
 
 
   fetch("https://pokeapi.co/api/v2/pokemon?limit=100")
 	.then((response) => response.json())
 	.then((data) => {
+    console.log(data)
 		pokemonesCapturados = data.results;
 		localStorage.setItem("ListaPokemones", JSON.stringify(pokemonesCapturados));
 		console.log(pokemonesCapturados);
@@ -47,7 +50,7 @@ const select = document.getElementById('pokemones');
 			const option = document.createElement("option");
 			option.textContent = `${pokemoncito.name}`;
 			option.value = `${pokemoncito.url}`; ///el indice donde se encuentra este producto
-			select.appendChild(option);
+      select.appendChild(option);
 		});
 	});
  
@@ -62,30 +65,65 @@ const select = document.getElementById('pokemones');
           fetch(pokemonElegido)
           .then((response2) => response2.json())
           .then((data2) => {
-            console.log(data2.results);
-            carrito.push(data2);
+            console.log(data2.species);
+            carrito.push(data2.species);
             console.log(carrito);
+            localStorage.setItem("carrito",JSON.stringify(carrito));
+            let imagen= document.getElementById('pokemon_img')
+            imagen.src= data2.sprites.other.dream_world.front_default 
+
+
+            let div =document.getElementById('datos_pokemon')
+            // let div=$('.datos_pokemon')
+            div.empty()
+
+            let tabla1 = (`<table class="table">`)
+
+            for(let i =0; i<data2.stats.length; i++) {
+              tabla1+=('<tr>')
+              tabla1+=(`<td>${data2.stats[i].stat.name}</td>`)
+              tabla1+=(`<td>${data2.stats[i].base_stat}</td>`)
+              tabla1+=('</tr>')
+            }
+            tabla1+=('</table>')
+            div.append(tabla1)
+            // let tabla =document.getElementById()
+            renderizarTabla();
           })
          })
 
+  
+
+function renderizarTabla() {
+   tabla.innerHTML = "";
+  carrito.forEach((prod) => {
+    tabla.innerHTML += `
+    <tr>
+      <td>${prod.name}</td>
+      <td>${prod.url}</td>
+      <td></td>
+    </tr>
+`;
+  });
+}
 
  
 
-//   const pokemonName = 'pikachu';
+   const pokemonName = 'pikachu';
 
-// fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-//   .then(response => response.json())
-//   .then(data => {
-//     console.log('Nombre:', data.name);
-//     console.log('Altura:', data.height);
-//     console.log('Peso:', data.weight);
-//     console.log('Habilidades:', data.abilities.map(ability => ability.ability.name).join(', '));
-//     console.log('Tipo:', data.types.map(type => type.type.name).join(', '));
-//     console.log('Estadísticas:');
-//     data.stats.forEach(stat => {
-//       console.log(`${stat.stat.name}: ${stat.base_stat}`);
-//     });
-//   })
-//   .catch(error => {
-//     console.log('Ha ocurrido un error:', error);
-//   });
+ fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+   .then(response => response.json())
+   .then(data => {
+     console.log('Nombre:', data.name);
+     console.log('Altura:', data.height);
+     console.log('Peso:', data.weight);
+     console.log('Habilidades:', data.abilities.map(ability => ability.ability.name).join(', '));
+     console.log('Tipo:', data.types.map(type => type.type.name).join(', '));
+     console.log('Estadísticas:');
+     data.stats.forEach(stat => {
+       console.log(`${stat.stat.name}: ${stat.base_stat}`);
+     });
+     })
+    .catch(error => {
+     console.log('Ha ocurrido un error:', error);
+   });
