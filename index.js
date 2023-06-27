@@ -7,6 +7,7 @@ const tabla = document.getElementById('items');
 const select = document.getElementById('pokemones');
 let div =document.querySelector('.datos_pokemon')
 let tabla1= document.createElement("table")
+const total = document.getElementById('total');
 
 
 
@@ -38,13 +39,13 @@ let tabla1= document.createElement("table")
           .then((data2) => {
             console.log(data2.species);
             const pokemoncitoC= {...data2.species}
-             console.log(pokemoncitoC)
              pokemoncitoC['cantidad']=1;
 
-
              const indiceCarrito= carrito.findIndex((poke) => {return poke.name == pokemoncitoC.name})
+            console.log(indiceCarrito);
+
              if(indiceCarrito != -1){
-              carrito.cantidad++;
+              carrito[indiceCarrito].cantidad++;
              }else{
             carrito.push(pokemoncitoC);
              }
@@ -73,6 +74,7 @@ let tabla1= document.createElement("table")
 
 function renderizarTabla() {
    tabla.innerHTML = "";
+   total.innerHTML = "";
   carrito.forEach((prod) => {
     tabla.innerHTML += `
     <tr>
@@ -80,6 +82,8 @@ function renderizarTabla() {
       <td>${prod.cantidad}</td>
       <td></td>
     </tr>
-`;
+    `;
   });
+  total.innerHTML = carrito.reduce((acumulador,item) => acumulador + item.cantidad,0)
+
 }
